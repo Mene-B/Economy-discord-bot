@@ -29,7 +29,7 @@ module.exports = {
                 db.add(member.id, -quantity);
             }
         });
-        sendLog(interaction, `${interaction.options.getNumber("quantity")} credits were withdrawn to the role ${interaction.options.getRole("role")} by ${interaction.member}`);
+        sendLog(interaction, `${quantity} credits were withdrawn to the role ${role} by ${interaction.member}`);
         interaction.reply("The credits have been withdrawned to the role");
     }
 }
