@@ -3,8 +3,8 @@ const { sendLog } = require('../util');
 
 module.exports = {
     data : new SlashCommandBuilder()
-    .setName("pay")
-    .setDescription("Use this commanbd to pay someone")
+    .setName("pay")   //You can modify the name of the command her eif you want 
+    .setDescription("Use this command to pay someone")
     .addUserOption(option =>{
         return option
         .setName("member")

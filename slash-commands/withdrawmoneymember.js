@@ -4,7 +4,7 @@ const {sendLog} = require("../util")
 module.exports = {
     data : new SlashCommandBuilder()
     .setName("withdrawmoneymember")
-    .setDescription("Withdraw money from a member's balance as an Admin")
+    .setDescription("Withdraw money from a member as an Admin")
     .addUserOption(option => {
         return option
         .setName("member")
@@ -14,7 +14,7 @@ module.exports = {
     .addNumberOption(option => {
         return option
         .setName("quantity")
-        .setDescription("Enter the amount of money you want to withdraw from the member's balance")
+        .setDescription("Enter the amount of credits")
         .setRequired(true)
     }),
     run : async function(interaction, db, config){

@@ -5,17 +5,17 @@ module.exports = {
 
     data: new SlashCommandBuilder()
 		.setName('addmoneymember')
-		.setDescription('Add money to a member as an Admin')
+		.setDescription('Add credits to a member as an Admin')
         .addUserOption(option => {
             return option
-            .setName("membername")
+            .setName("member")
             .setDescription("Enter the member")
             .setRequired(true)
         })
         .addNumberOption(option => {
             return option
             .setName("quantity")
-            .setDescription("Enter the amount of money")
+            .setDescription("Enter the amount of credits")
             .setRequired(true)
         }),
 
@@ -24,12 +24,12 @@ module.exports = {
             interaction.reply("Only Admins can add money !")
             return
         }
-        const user = interaction.options.getUser('membername').id;
+        const user = interaction.options.getUser('member').id;
         if (!db.has(user)){
             db.set(user,0)
         }
         db.add(user, interaction.options.getNumber("quantity"))
-        sendLog(interaction ,`${interaction.member} added ${interaction.options.getNumber("quantity")} credits to ${interaction.options.getUser("membername")}'s balance`);
+        sendLog(interaction ,`${interaction.member} added ${interaction.options.getNumber("quantity")} credits to ${interaction.options.getUser("member")}'s balance`);
 		return interaction.reply('The money has been added !');
 	}
 

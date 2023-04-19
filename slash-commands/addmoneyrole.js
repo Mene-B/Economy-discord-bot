@@ -5,7 +5,7 @@ module.exports = {
 
     data: new SlashCommandBuilder()
 		.setName('addmoneyrole')
-		.setDescription('Add money to all the people that have this role as an Admin')
+		.setDescription('Add money to all the people that have a specific role as an Admin')
         .addRoleOption(option => {
             return option
             .setName("role")
@@ -15,7 +15,7 @@ module.exports = {
         .addNumberOption(option => {
             return option
             .setName("quantity")
-            .setDescription("Enter the quantity you want to add the role")
+            .setDescription("Enter the amount of credits")
             .setRequired(true)
         }),
         run: async function (interaction,db) {

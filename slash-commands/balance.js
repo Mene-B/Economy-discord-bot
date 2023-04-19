@@ -7,12 +7,13 @@ module.exports = {
 		.setDescription("Check your balance or someone else's one")
         .addUserOption(option => {
             return option
-            .setName("membername")
+            .setName("member")
             .setDescription("Enter the member you to check the balance")
             .setRequired(false)
         }),
     run: async function (interaction,db) {
-        const user = interaction.options.getUser('membername')?.id || interaction.user.id;
-        interaction.reply(`<@${user}> now have ${db.get(user) || 0} credits`);
+        await interaction.guild.members.fetch();
+        const user = interaction.options.getUser('member')?.id || interaction.user.id;
+        interaction.reply(`${interaction.guild.members.cache.get(user).nickname || interaction.guild.members.cache.get(user).user.username} now has ${db.get(user) || 0} credits`);
         }
     }

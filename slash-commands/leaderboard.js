@@ -22,11 +22,12 @@ module.exports = {
             })
             .setColor("Blue")
             .setDescription(
+                "**Guild's Leaderboard**\n\n" +
                 page.map((user, i)=>{
                     return `**${(index)*10 + i+1}.** ${interaction.guild.members.cache.get(user.key)} ==> ${user.data} 💰 `
                 }).join('\n')
             )
-            .setFooter({text : `Your rank : ${personalRank}\n\nPage ${index+1}/${pagesNumber}`})
+            .setFooter({text : `Page ${index+1}/${pagesNumber}  •  Your rank : ${personalRank}`})
         })
         const previousButton = new ButtonBuilder()
         .setCustomId("previous")

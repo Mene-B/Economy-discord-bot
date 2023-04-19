@@ -4,7 +4,7 @@ module.exports = {
 
     data: new SlashCommandBuilder()
 		.setName('withdrawrole')
-		.setDescription('Withdraw a role to one or multiple members as an Admin')
+		.setDescription('Withdraw a role from one or multiple members as an Admin')
         .addStringOption(option => {
             return option
             .setName("members")
