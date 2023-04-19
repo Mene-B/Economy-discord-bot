@@ -25,7 +25,9 @@ module.exports = {
             if (string.includes("@everyone")){
                 await interaction.guild.members.fetch();
                 await interaction.guild.members.cache.forEach(member => {
-                    member.roles.remove(interaction.options.getRole("role"))
+                    if (!member.user.bot){
+                        member.roles.remove(interaction.options.getRole("role").id);
+                    }
                 })
                 return interaction.reply("The role has been removed for everyone successfully !")
             }

@@ -25,7 +25,9 @@ module.exports = {
             if (string.match(/@everyone/g)?.length === 1){
                 await interaction.guild.members.fetch();
                 await interaction.guild.members.cache.forEach(member => {
-                    member.roles.add(interaction.options.getRole("role").id)
+                    if (!member.user.bot){
+                        member.roles.add(interaction.options.getRole("role").id)
+                    }
                 });
                 return interaction.reply("The role has been added to everyone in the guild successfully !")
 
