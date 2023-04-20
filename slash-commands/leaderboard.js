@@ -14,6 +14,7 @@ module.exports = {
         const personalRank = datas.findIndex(element => {
             return element.key === interaction.user.id
         })+1;
+        await interaction.guild.members.fetch();
         const pagesEmbed = pages.map((page, index) => {
             return new EmbedBuilder()
             .setAuthor({

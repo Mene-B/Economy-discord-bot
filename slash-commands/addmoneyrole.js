@@ -24,7 +24,7 @@ module.exports = {
                 return
             }
             await interaction.guild.members.fetch();
-            await interaction.guild.members.cache.forEach(member => {
+            interaction.guild.members.cache.forEach(member => {
                 if (member.roles.cache.has(interaction.options.getRole("role").id)){
                     db.add(member.id, interaction.options.getNumber("quantity"))
                 }

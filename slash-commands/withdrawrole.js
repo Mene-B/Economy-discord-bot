@@ -24,7 +24,7 @@ module.exports = {
             const ids = [];
             if (string.includes("@everyone")){
                 await interaction.guild.members.fetch();
-                await interaction.guild.members.cache.forEach(member => {
+                interaction.guild.members.cache.forEach(member => {
                     if (!member.user.bot){
                         member.roles.remove(interaction.options.getRole("role").id);
                     }
@@ -43,7 +43,7 @@ module.exports = {
                 return interaction.reply("Only Admins can remove roles !");
             }else {
                 await interaction.guild.members.fetch();
-                await ids.forEach(id => {
+                ids.forEach(id => {
                     interaction.guild.members.cache.get(id)?.roles.remove(interaction.options.getRole("role"));
                 });
             }

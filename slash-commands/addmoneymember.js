@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('discord.js');
 const {sendLog} = require("../util");
+const config = require("../config.json")
 
 module.exports = {
 
@@ -20,7 +21,7 @@ module.exports = {
         }),
 
     run: async function (interaction,db) {
-        if(!interaction.member.roles.cache.has("1097209275530608640")){
+        if(!interaction.member.roles.cache.has(config.adminId)){
             interaction.reply("Only Admins can add money !")
             return
         }
