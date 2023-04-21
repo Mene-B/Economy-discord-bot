@@ -16,7 +16,7 @@ module.exports = {
         const user = interaction.options.getUser('member')?.id || interaction.user.id;
         const embed = new EmbedBuilder()
         .setAuthor({
-            name : interaction.guild.members.cache.get(user).nickname + ":atm:"|| interaction.guild.members.cache.get(user).user.username + ":atm:"|| interaction.member.nickname + ":atm:"|| interaction.user.username + ":atm:",
+            name : (interaction.guild.members.cache.get(user).nickname || interaction.guild.members.cache.get(user).user.username || interaction.member.nickname || interaction.user.username),
             iconURL : "https://i.goopics.net/ocqjqy.png"
         })
         .setDescription(`**Balance :** ${db.get(user) || 0} :dollar:`)
