@@ -3,7 +3,7 @@ const { sendLogMember } = require('../util');
 
 module.exports = {
     data : new SlashCommandBuilder()
-    .setName("pay")   //You can modify the name of the command her eif you want 
+    .setName("pay")   
     .setDescription("Use this command to pay someone")
     .addUserOption(option =>{
         return option
@@ -27,7 +27,7 @@ module.exports = {
         const sameTarget = memberPayed.id === payerMember.id;
 
         const error = invalidQuantity ? `⛔ **You can't pay a negative amount of money !** ⛔`
-            : lowBalance ? `⛔ **You don't have this amount of credits in your balance** ⛔`
+            : lowBalance ? `⛔ **You don't have this amount of credits in your balance** ⛔`    // You can modify the messages here if you want to
             : sameTarget ? `⛔ **You can't pay yourself** ⛔`
             : undefined;
 
@@ -52,8 +52,8 @@ module.exports = {
             iconURL : "https://i.goopics.net/ocqjqy.png"
         })
         .setFields(
-            {name : "Payer member :" , value : `${payerMember} :atm:`, inline : false},
-            {name : "Quantity :", value : `${quantity} :dollar:`, inline : false},
+            {name : "Payer member :" , value : `${payerMember} :atm:`, inline : false},    
+            {name : "Quantity :", value : `${quantity} :dollar:`, inline : false},           // You can modify the message here if you want to
             {name : "Member payed :" , value : `${memberPayed} :atm:` , inline : false}
         )
         .setColor("Gold")

@@ -46,7 +46,7 @@ module.exports = {
                     name : "Admins",
                     iconURL : "https://i.goopics.net/ku6net.png"
                 })
-                .setDescription(`:white_check_mark: The **Admins** added a role to everyone ! :white_check_mark:\n\n**Role :** ${interaction.options.getRole("role")}`)
+                .setDescription(`:white_check_mark: The **Admins** added a role to everyone ! :white_check_mark:\n\n**Role :** ${interaction.options.getRole("role")}`)    // You can modify the message here if you want to
 
                 return interaction.reply({embeds : [embed]})
 
@@ -65,7 +65,7 @@ module.exports = {
                 name : "Admins",
                 iconURL : "https://i.goopics.net/ku6net.png"
             })
-            .setDescription(`:white_check_mark: The **Admins** decided to give a role to members ! :white_check_mark:\n\n**Role :** ${interaction.options.getRole("role")}\n**Members :** <@${ids.join("> :atm:, <@")}> :atm:`)
+            .setDescription(`:white_check_mark: The **Admins** decided to give a role to members ! :white_check_mark:\n\n**Role :** ${interaction.options.getRole("role")}\n**Members :** <@${ids.join("> :atm:, <@")}> :atm:`)    // You can modify the message here if you want to
             .setColor("Green")
 
 

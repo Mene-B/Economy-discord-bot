@@ -19,7 +19,7 @@ module.exports = {
             name : (interaction.guild.members.cache.get(user).nickname || interaction.guild.members.cache.get(user).user.username || interaction.member.nickname || interaction.user.username),
             iconURL : "https://i.goopics.net/ocqjqy.png"
         })
-        .setDescription(`**Balance :** ${db.get(user) || 0} :dollar:`)
+        .setDescription(`**Balance :** ${db.get(user) || 0} :dollar:`)   // You can modify the message here if you want to
         .setColor("Gold")
 
         interaction.reply({embeds : [embed]});

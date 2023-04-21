@@ -26,7 +26,7 @@ module.exports = {
                 name : interaction.member.nickname + ":atm:"|| interaction.user.username+ ":atm:",
                 iconURL : "https://images.emojiterra.com/twitter/v14.0/1024px/26d4.png"
             })
-            .setDescription("⛔ **Only Admins can withdraw money from a role !** ⛔")
+            .setDescription("⛔ **Only Admins can withdraw money from a role !** ⛔")     // You can modify the message here if you want to
             .setColor("Red")
 
             return interaction.reply({embeds : [embed]});
@@ -42,7 +42,7 @@ module.exports = {
             name : "Admins",
             iconURL : "https://i.goopics.net/lxdlsh.png"
         })
-        .setDescription(`:negative_squared_cross_mark: The **Admins** decided to withdraw credits from a role ! :negative_squared_cross_mark:\n\n**Role :** ${interaction.options.getRole("role")}\n**Amount :** ${interaction.options.getNumber("quantity")} :dollar:`)
+        .setDescription(`:negative_squared_cross_mark: The **Admins** decided to withdraw credits from a role ! :negative_squared_cross_mark:\n\n**Role :** ${interaction.options.getRole("role")}\n**Amount :** ${interaction.options.getNumber("quantity")} :dollar:`)  // You can modify the message here if you want to
         .setColor("Green")
 
         sendLogRole(interaction, interaction.options.getRole("role"), `${interaction.member}`,`${-interaction.options.getNumber("quantity")}`, `${interaction.commandName} command`, true);

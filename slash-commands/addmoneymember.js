@@ -40,7 +40,7 @@ module.exports = {
             name : "Admins",
             iconURL : "https://i.goopics.net/ku6net.png"
         })
-        .setDescription(`:white_check_mark: The **Admins** decided to give you credits ! :white_check_mark:\n\n**Member :** ${interaction.options.getUser("member")} :atm:\n**Amount :** ${interaction.options.getNumber("quantity")} :dollar:`)
+        .setDescription(`:white_check_mark: The **Admins** decided to give you credits ! :white_check_mark:\n\n**Member :** ${interaction.options.getUser("member")} :atm:\n**Amount :** ${interaction.options.getNumber("quantity")} :dollar:`)  // You can modify the message here if you want to
         .setColor("Green")
 
 

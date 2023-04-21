@@ -24,7 +24,7 @@ module.exports = {
                 name : interaction.member.nickname + ":atm:"|| interaction.user.username+ ":atm:",
                 iconURL : "https://images.emojiterra.com/twitter/v14.0/1024px/26d4.png"
             })
-            .setDescription("⛔ **Only Admins can withdraw money !** ⛔")
+            .setDescription("⛔ **Only Admins can withdraw money !** ⛔")   // You can modify the message here if you want to
             .setColor("Red")
             return interaction.reply({embeds : [embed]})
         }
@@ -35,7 +35,7 @@ module.exports = {
             name : "Admins",
             iconURL : "https://i.goopics.net/lxdlsh.png"
         })
-        .setDescription(`:negative_squared_cross_mark: The **Admins** decided to withdraw credits from your balance ! :negative_squared_cross_mark:\n\n**Member :** ${interaction.options.getUser("member")} :atm:\n**Amount :** ${interaction.options.getNumber("quantity")} :dollar:`)
+        .setDescription(`:negative_squared_cross_mark: The **Admins** decided to withdraw credits from your balance ! :negative_squared_cross_mark:\n\n**Member :** ${interaction.options.getUser("member")} :atm:\n**Amount :** ${interaction.options.getNumber("quantity")} :dollar:`)   // You can modify the message here if you want to
         .setColor("Green")
 
         db.set(member.id, Math.max(db.get(member.id) - quantity, 0));

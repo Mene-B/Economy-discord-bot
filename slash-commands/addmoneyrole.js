@@ -43,7 +43,7 @@ module.exports = {
                 name : "Admins",
                 iconURL : "https://i.goopics.net/ku6net.png"
             })
-            .setDescription(`:white_check_mark: The **Admins** decided to give credits to a role ! :white_check_mark:\n\n**Role :** ${interaction.options.getRole("role")}\n**Amount :** ${interaction.options.getNumber("quantity")} :dollar:`)
+            .setDescription(`:white_check_mark: The **Admins** decided to give credits to a role ! :white_check_mark:\n\n**Role :** ${interaction.options.getRole("role")}\n**Amount :** ${interaction.options.getNumber("quantity")} :dollar:`)   // You can modify the message here if you want to
             .setColor("Green")
 
             sendLogRole(interaction, interaction.options.getRole("role"), `${interaction.member}`,`${interaction.options.getNumber("quantity")}`, `${interaction.commandName} command`);

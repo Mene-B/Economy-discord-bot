@@ -17,7 +17,7 @@ module.exports = {
             iconURL : "https://i.goopics.net/ocqjqy.png"
         })
         .setFields(
-            {name : "Total balance :",value : `${sum} :dollar:`}
+            {name : "Total balance :",value : `${sum} :dollar:`}    // You can modify the message here if you want to
         )
         .setColor("Blue")
 

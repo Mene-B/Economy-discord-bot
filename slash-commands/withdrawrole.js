@@ -45,7 +45,7 @@ module.exports = {
                     name : "Admins",
                     iconURL : "https://i.goopics.net/lxdlsh.png"
                 })
-                .setDescription(`:negative_squared_cross_mark: The **Admins** withdrew a role from everyone ! :negative_squared_cross_mark:\n\n**Role :** ${interaction.options.getRole("role")}`)
+                .setDescription(`:negative_squared_cross_mark: The **Admins** withdrew a role from everyone ! :negative_squared_cross_mark:\n\n**Role :** ${interaction.options.getRole("role")}`)  // You can modify the message here if you want to
 
                 return interaction.reply({embeds : [embed]})
             }
@@ -66,7 +66,7 @@ module.exports = {
                 name : "Admins",
                 iconURL : "https://i.goopics.net/lxdlsh.png"
             })
-            .setDescription(`:negative_squared_cross_mark: The **Admins** decided to withdraw a role from members\n\n**Role :** ${interaction.options.getRole("role")}\n**Members :** <@${ids.join("> :atm:, <@")}> :atm:`)
+            .setDescription(`:negative_squared_cross_mark: The **Admins** decided to withdraw a role from members\n\n**Role :** ${interaction.options.getRole("role")}\n**Members :** <@${ids.join("> :atm:, <@")}> :atm:`)     // You can modify the message here if you want to
             .setColor("Green")
 
             return interaction.reply({embeds : [embed]});
