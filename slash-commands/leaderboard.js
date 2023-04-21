@@ -25,7 +25,7 @@ module.exports = {
             .setDescription(
                 "**Guild's Leaderboard**\n\n" +
                 page.map((user, i)=>{
-                    return `**${(index)*10 + i+1}.** ${interaction.guild.members.cache.get(user.key)} ==> ${user.data} 💰 `
+                    return `**${(index)*10 + i+1}.** ${interaction.guild.members.cache.get(user.key)} :atm: • ${user.data} :dollar: `
                 }).join('\n')
             )
             .setFooter({text : `Page ${index+1}/${pagesNumber}  •  Your rank : ${personalRank}`})

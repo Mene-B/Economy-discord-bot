@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 
 module.exports = {
 
@@ -22,6 +22,17 @@ module.exports = {
             const regEx = /(<@([0-9]+)>)/g;
             const mentions = string.match(regEx);
             const ids = [];
+            if (!interaction.member.roles.cache.has(config.adminId)){
+                const embed = new EmbedBuilder()
+                .setAuthor({
+                    name : interaction.member.nickname+ ":atm:" || interaction.user.username+ ":atm:",
+                    iconURL : "https://images.emojiterra.com/twitter/v14.0/1024px/26d4.png"
+                })
+                .setDescription("⛔ **Only Admins can withdraw roles !** ⛔")
+                .setColor("Red")
+
+                return interaction.reply("Only Admins can remove roles !");
+            }
             if (string.includes("@everyone")){
                 await interaction.guild.members.fetch();
                 interaction.guild.members.cache.forEach(member => {
@@ -29,7 +40,14 @@ module.exports = {
                         member.roles.remove(interaction.options.getRole("role").id);
                     }
                 })
-                return interaction.reply("The role has been removed for everyone successfully !")
+                const embed = new EmbedBuilder()
+                .setAuthor({
+                    name : "Admins",
+                    iconURL : "https://i.goopics.net/lxdlsh.png"
+                })
+                .setDescription(`:negative_squared_cross_mark: The **Admins** withdrew a role from everyone ! :negative_squared_cross_mark:\n\n**Role :** ${interaction.options.getRole("role")}`)
+
+                return interaction.reply({embeds : [embed]})
             }
             if (mentions.lenght === 0){
                 return interaction.reply("Please mention members")
@@ -39,13 +57,17 @@ module.exports = {
                 id.pop();
                 ids.push(id.join(''));
             };
-            if (!interaction.member.roles.cache.has(config.adminId)){
-                return interaction.reply("Only Admins can remove roles !");
-            }else {
-                await interaction.guild.members.fetch();
-                ids.forEach(id => {
-                    interaction.guild.members.cache.get(id)?.roles.remove(interaction.options.getRole("role"));
-                });
-            }
-            return interaction.reply("The role has been removed");
+            await interaction.guild.members.fetch();
+            ids.forEach(id => {
+                interaction.guild.members.cache.get(id)?.roles.remove(interaction.options.getRole("role"));
+            });
+            const embed = new EmbedBuilder()
+            .setAuthor({
+                name : "Admins",
+                iconURL : "https://i.goopics.net/lxdlsh.png"
+            })
+            .setDescription(`:negative_squared_cross_mark: The **Admins** decided to withdraw a role from members\n\n**Role :** ${interaction.options.getRole("role")}\n**Members :** <@${ids.join("> :atm:, <@")}> :atm:`)
+            .setColor("Green")
+
+            return interaction.reply({embeds : [embed]});
     }}

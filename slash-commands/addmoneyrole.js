@@ -1,5 +1,5 @@
-const { SlashCommandBuilder } = require('discord.js');
-const { sendLog } = require('../util');
+const { SlashCommandBuilder , EmbedBuilder} = require('discord.js');
+const { sendLogRole } = require('../util');
 
 module.exports = {
 
@@ -20,7 +20,15 @@ module.exports = {
         }),
         run: async function (interaction,db) {
             if(!interaction.member.roles.cache.has("1097209275530608640")){
-                interaction.reply("Only Admins can add money to a role !")
+                const embed = new EmbedBuilder()
+                .setAuthor({
+                    name : interaction.member.nickname+ ":atm:" || interaction.user.username+ ":atm:",
+                    iconURL : "https://images.emojiterra.com/twitter/v14.0/1024px/26d4.png"
+                })
+                .setDescription("⛔ **Only Admins can add money to a role !** ⛔")
+                .setColor("Red")
+
+                interaction.reply({embeds : [embed]})
                 return
             }
             await interaction.guild.members.fetch();
@@ -29,8 +37,17 @@ module.exports = {
                     db.add(member.id, interaction.options.getNumber("quantity"))
                 }
             });
-            sendLog(interaction, `${interaction.options.getNumber("quantity")} credits were given to the role ${interaction.options.getRole("role")} by ${interaction.member}`);
-            interaction.reply("The credits have been added to the role");
+
+            const embed = new EmbedBuilder()
+            .setAuthor({
+                name : "Admins",
+                iconURL : "https://i.goopics.net/ku6net.png"
+            })
+            .setDescription(`:white_check_mark: The **Admins** decided to give credits to a role ! :white_check_mark:\n\n**Role :** ${interaction.options.getRole("role")}\n**Amount :** ${interaction.options.getNumber("quantity")} :dollar:`)
+            .setColor("Green")
+
+            sendLogRole(interaction, interaction.options.getRole("role"), `${interaction.member}`,`${interaction.options.getNumber("quantity")}`, `${interaction.commandName} command`);
+            interaction.reply({embeds : [embed]});
         }
     
     };

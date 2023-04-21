@@ -1,5 +1,5 @@
-const {SlashCommandBuilder} = require('discord.js');
-const { sendLog } = require('../util');
+const {SlashCommandBuilder,EmbedBuilder} = require('discord.js');
+const { sendLogMember } = require('../util');
 
 module.exports = {
     data : new SlashCommandBuilder()
@@ -22,17 +22,55 @@ module.exports = {
         const payerMember = interaction.member;
         const quantity = interaction.options.getNumber("quantity");
         if (quantity < 0){
-            return interaction.reply("You can't pay a negative amount of money")
+            const embed = new EmbedBuilder()
+            .setAuthor({
+                name : interaction.member.nickname || interaction.user.username,
+                iconURL : "https://images.emojiterra.com/twitter/v14.0/1024px/26d4.png"
+            })
+            .setDescription("⛔ **You can't pay a negative amount of money !** ⛔")
+            .setColor("Red")
+
+            return interaction.reply({embeds : [embed]})
         }
         if (db.get(payerMember.id)<quantity){
-            return interaction.reply("You don't have this amount of credits in your balance")
+            const embed = new EmbedBuilder()
+            .setAuthor({
+                name : interaction.member.nickname || interaction.user.username,
+                iconURL : "https://images.emojiterra.com/twitter/v14.0/1024px/26d4.png"
+            })
+            .setDescription("⛔ **You don't have this amount of credits in your balance** ⛔")
+            .setColor("Red")
+
+            return interaction.reply({embeds : [embed]})
         }else if(memberPayed.id === payerMember.id){
-            return interaction.reply("You can't pay yourself...")
+            const embed = new EmbedBuilder()
+            .setAuthor({
+                name : interaction.member.nickname || interaction.user.username,
+                iconURL : "https://images.emojiterra.com/twitter/v14.0/1024px/26d4.png"
+            })
+            .setDescription("⛔ **You can't pay yourself** ⛔")
+            .setColor("Red")
+
+            return interaction.reply({embeds : [embed]})
         }else {
             db.add(payerMember.id, -quantity);
             db.add(memberPayed.id, quantity);
-            sendLog(interaction , `${payerMember} paid ${quantity} credits to ${memberPayed}`);
-            return interaction.reply(`You succesfully paid <@${memberPayed.id}> !`)
+
+            const embed = new EmbedBuilder()
+            .setAuthor({
+                name : "Payment" ,
+                iconURL : "https://i.goopics.net/ocqjqy.png"
+            })
+            .setFields(
+                {name : "Payer member :" , value : `${payerMember} :atm:`, inline : false},
+                {name : "Quantity :", value : `${quantity} :dollar:`, inline : false},
+                {name : "Member payed :" , value : `${memberPayed} :atm:` , inline : false}
+            )
+            .setColor("Gold")
+
+            sendLogMember(interaction , `${memberPayed}`, `${payerMember}`, `${quantity}`, interaction.commandName + " command");
+            sendLogMember(interaction , `${payerMember}`, `${payerMember}`, `${-quantity}`, interaction.commandName + " command", true);
+            return interaction.reply({embeds : [embed]})
         }
     }
 }

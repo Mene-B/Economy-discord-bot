@@ -1,5 +1,5 @@
-const {SlashCommandBuilder} = require("discord.js");
-const { sendLog } = require("../util");
+const {SlashCommandBuilder, EmbedBuilder} = require("discord.js");
+const { sendLogRole } = require("../util");
 
 module.exports = {
     data : new SlashCommandBuilder()
@@ -21,7 +21,15 @@ module.exports = {
         const role = interaction.options.getRole("role");
         const quantity = interaction.options.getNumber("quantity");
         if (!interaction.member.roles.cache.has(config.adminId)){
-            return interaction.reply("Only Admins can execute this command");
+            const embed = new EmbedBuilder()
+            .setAuthor({
+                name : interaction.member.nickname + ":atm:"|| interaction.user.username+ ":atm:",
+                iconURL : "https://images.emojiterra.com/twitter/v14.0/1024px/26d4.png"
+            })
+            .setDescription("⛔ **Only Admins can withdraw money from a role !** ⛔")
+            .setColor("Red")
+
+            return interaction.reply({embeds : [embed]});
         }
         await interaction.guild.members.fetch();
         interaction.guild.members.cache.forEach(member => {
@@ -29,8 +37,16 @@ module.exports = {
                 db.add(member.id, -quantity);
             }
         });
-        sendLog(interaction, `${quantity} credits were withdrawn to the role ${role} by ${interaction.member}`);
-        interaction.reply("The credits have been withdrawned to the role");
+        const embed = new EmbedBuilder()
+        .setAuthor({
+            name : "Admins",
+            iconURL : "https://i.goopics.net/lxdlsh.png"
+        })
+        .setDescription(`:negative_squared_cross_mark: The **Admins** decided to withdraw credits from a role ! :negative_squared_cross_mark:\n\n**Role :** ${interaction.options.getRole("role")}\n**Amount :** ${interaction.options.getNumber("quantity")} :dollar:`)
+        .setColor("Green")
+
+        sendLogRole(interaction, interaction.options.getRole("role"), `${interaction.member}`,`${-interaction.options.getNumber("quantity")}`, `${interaction.commandName} command`, true);
+        interaction.reply({embeds : [embed]});
     }
 }
 

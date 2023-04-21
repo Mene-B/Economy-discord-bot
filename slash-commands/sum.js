@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder,EmbedBuilder } = require('discord.js');
 
 module.exports = {
 
@@ -10,7 +10,18 @@ module.exports = {
         db.all().forEach(element => {
             sum += element.data
         })
-        return interaction.reply(`The sum of all the balances is ${sum}`)
+
+        const embed = new EmbedBuilder()
+        .setAuthor({
+            name : "Economy stats",
+            iconURL : "https://i.goopics.net/ocqjqy.png"
+        })
+        .setFields(
+            {name : "Total balance :",value : `${sum} :dollar:`}
+        )
+        .setColor("Blue")
+
+        return interaction.reply({embeds : [embed]})
         // Version de Simon : console.log(db.all().map((e) => e.data).reduce((a, p) => a + p, 0))
     }
 }
