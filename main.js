@@ -29,6 +29,8 @@ client.login(token);
 
 client.on("ready" , ()=> {
     console.log("ready to work");
+    console.log(client.guilds.cache.get(config.guildId).roles.cache.get(config.adminId).permissions.has("0x0000000000000008",false));
+
 })
 
 client.on("interactionCreate", (interaction)=>{
@@ -40,8 +42,11 @@ client.on("interactionCreate", (interaction)=>{
 client.on("messageCreate",(message)=>{
 })
 
-
-
+db.set("coucou", [1,null,[]]);
+const datas = db.get("coucou");
+datas[2].push("voilà la raison");
+db.set("coucou",datas);
+console.log(db.get("coucou"));
 
 // quand la commande ajouterRoles est exécutée
 // faire un interaction.guild.members.fetch();

@@ -19,7 +19,14 @@ module.exports = {
             .setRequired(true)
         }),
         run: async function (interaction,db) {
-            if(!interaction.member.roles.cache.has("1097209275530608640")){
+            const roles = []
+            for (const role of interaction.member.roles.cache){
+                roles.push(role[0]);
+            }
+            const admin = roles.map(role => {
+                return interaction.guild.roles.cache.get(role).permissions.has("0x0000000000000008")
+            })
+            if(!admin.includes(true)){
                 const embed = new EmbedBuilder()
                 .setAuthor({
                     name : interaction.member.nickname+ ":atm:" || interaction.user.username+ ":atm:",
