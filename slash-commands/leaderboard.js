@@ -3,7 +3,7 @@ const {createLeaders} = require("../util")
 module.exports = {
     data : new SlashCommandBuilder()
     .setName("leaderboard")
-    .setDescription("Get the leader board of the 15 richest people in the guil, and your rank"),
+    .setDescription("Get the leader board of the guild"),
     run : async function(interaction, db , config){
         await interaction.deferReply();
         const datas = db.all().sort((a,b) => b.data-a.data);
@@ -25,7 +25,7 @@ module.exports = {
             .setDescription(
                 "**Guild's Leaderboard**\n\n" +
                 page.map((user, i)=>{
-                    return `**${(index)*10 + i+1}.** ${interaction.guild.members.cache.get(user.key)} :atm: • ${user.data} :dollar: `
+                    return `**${(index)*10 + i+1}.** ${interaction.guild.members.cache.get(user.key)} :atm: • ${user.data[0]} :dollar: `
                 }).join('\n')
             )
             .setFooter({text : `Page ${index+1}/${pagesNumber}  •  Your rank : ${personalRank}`})

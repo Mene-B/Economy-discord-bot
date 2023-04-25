@@ -21,9 +21,14 @@ module.exports = {
         const memberPayed = interaction.options.getUser("member");
         const payerMember = interaction.member;
         const quantity = interaction.options.getNumber("quantity");
-
+        if(!db.has(memberPayed.id)){
+            db.set(memberPayed.id,[0,0,[],[]])
+        }
+        if(!db.has(payerMember.id)){
+            db.set(payerMember.id, [0,0,[],[]])
+        }
         const invalidQuantity = quantity < 0;
-        const lowBalance = db.get(payerMember.id)<quantity;
+        const lowBalance = db.get(payerMember.id)[0]<quantity;
         const sameTarget = memberPayed.id === payerMember.id;
 
         const error = invalidQuantity ? `⛔ **You can't pay a negative amount of money !** ⛔`
@@ -42,9 +47,12 @@ module.exports = {
 
             return interaction.reply({embeds : [embed]})
         }
-
-        db.add(payerMember.id, -quantity);
-        db.add(memberPayed.id, quantity);
+        let dataPayer = db.get(payerMember.id);
+        let dataPayed = db.get(memberPayed.id);
+        dataPayer[0]-=quantity;
+        dataPayed[0]+=quantity;
+        db.set(payerMember.id, dataPayer);
+        db.set(memberPayed.id, dataPayed);
 
         const embed = new EmbedBuilder()
         .setAuthor({

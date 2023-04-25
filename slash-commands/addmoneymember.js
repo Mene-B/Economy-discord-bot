@@ -31,7 +31,7 @@ module.exports = {
         if(!admin.includes(true)){
             const embed = new EmbedBuilder()
             .setAuthor({
-                name : interaction.member.nickname + ":atm:"|| interaction.user.username+ ":atm:",
+                name : interaction.member.nickname || interaction.user.username,
                 iconURL : "https://images.emojiterra.com/twitter/v14.0/1024px/26d4.png"
             })
             .setDescription("⛔ **Only Admins can add money !** ⛔")
@@ -52,9 +52,12 @@ module.exports = {
 
 
         if (!db.has(user)){
-            db.set(user,0)
+            db.set(user,[0,0,[],[]])
         }
-        db.add(user, interaction.options.getNumber("quantity"))
+        let data = db.get(user);
+        data[0]+=interaction.options.getNumber("quantity");
+        db.set(user,data);
+
         sendLogMember(interaction , `${interaction.options.getUser("member")}`, `${interaction.member}`, `${interaction.options.getNumber("quantity")}`, interaction.commandName + " command");
 		return interaction.reply({embeds : [embed]});
 	}

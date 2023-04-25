@@ -8,7 +8,7 @@ module.exports = {
     run : async function(interaction, db ,config){
         let sum = 0;
         db.all().forEach(element => {
-            sum += element.data
+            sum += element.data[0]
         })
 
         const embed = new EmbedBuilder()

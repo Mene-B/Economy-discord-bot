@@ -32,7 +32,7 @@ module.exports = {
             if (!admin.includes(true)){
                 const embed = new EmbedBuilder()
                 .setAuthor({
-                    name : interaction.member.nickname+ ":atm:" || interaction.user.username+ ":atm:",
+                    name : interaction.member.nickname || interaction.user.username,
                     iconURL : "https://images.emojiterra.com/twitter/v14.0/1024px/26d4.png"
                 })
                 .setDescription("⛔ **Only Admins can add roles !** ⛔")

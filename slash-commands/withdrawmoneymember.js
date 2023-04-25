@@ -28,7 +28,7 @@ module.exports = {
         if (!admin.includes(true)){
             const embed = new EmbedBuilder()
             .setAuthor({
-                name : interaction.member.nickname + ":atm:"|| interaction.user.username+ ":atm:",
+                name : interaction.member.nickname || interaction.user.username,
                 iconURL : "https://images.emojiterra.com/twitter/v14.0/1024px/26d4.png"
             })
             .setDescription("⛔ **Only Admins can withdraw money !** ⛔")   // You can modify the message here if you want to
@@ -45,7 +45,12 @@ module.exports = {
         .setDescription(`:negative_squared_cross_mark: The **Admins** decided to withdraw credits from your balance ! :negative_squared_cross_mark:\n\n**Member :** ${interaction.options.getUser("member")} :atm:\n**Amount :** ${interaction.options.getNumber("quantity")} :dollar:`)   // You can modify the message here if you want to
         .setColor("Green")
 
-        db.set(member.id, Math.max(db.get(member.id) - quantity, 0));
+        if (!db.has(member.id)){
+            db.set(member.id, [0,0,[],[]]);
+        }
+        let data = db.get(member.id);
+        data[0]-=quantity;
+        db.set(member.id , data);
         sendLogMember(interaction , `${interaction.options.getUser("member")}`, `${interaction.member}`, `${-interaction.options.getNumber("quantity")}`, interaction.commandName + " command", true);
         return interaction.reply({embeds : [embed]})
     }

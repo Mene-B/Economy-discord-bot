@@ -31,7 +31,7 @@ module.exports = {
         if (!admin.includes(true)){
             const embed = new EmbedBuilder()
             .setAuthor({
-                name : interaction.member.nickname + ":atm:"|| interaction.user.username+ ":atm:",
+                name : interaction.member.nickname || interaction.user.username,
                 iconURL : "https://images.emojiterra.com/twitter/v14.0/1024px/26d4.png"
             })
             .setDescription("⛔ **Only Admins can withdraw money from a role !** ⛔")     // You can modify the message here if you want to
@@ -42,7 +42,12 @@ module.exports = {
         await interaction.guild.members.fetch();
         interaction.guild.members.cache.forEach(member => {
             if (member.roles.cache.has(role.id)){
-                db.add(member.id, -quantity);
+                if(!db.has(member.id)){
+                    db.set(member.id, [0,0,[],[]])
+                }
+                let data = db.get(member.id);
+                data[0]-=quantity;
+                db.set(member.id, data);
             }
         });
         const embed = new EmbedBuilder()
