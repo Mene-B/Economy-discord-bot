@@ -38,10 +38,14 @@ module.exports = {
         }
         const user = interaction.options.getUser("member");
         const index = interaction.options.getNumber("number")-1;
+        
         if(!db.has(user.id)){
             db.set([0,0,[],[]])
         }
         const datas = db.get(user.id);
+        if(index <0 || index+1 >datas[1]){
+            return interaction.reply('Please enter a warning number that exists for this member')
+        }
         datas[1]-=1;
         const reasons = datas[2];
         const actionners = datas[3];
