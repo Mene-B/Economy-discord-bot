@@ -6,7 +6,7 @@ module.exports = {
     .setDescription("Get the leader board of the guild"),
     run : async function(interaction, db , config){
         await interaction.deferReply();
-        const datas = db.all().sort((a,b) => b.data-a.data);
+        const datas = db.all().sort((a,b) => b.data[0]-a.data[0]);
         let page = 1;
         const pages = createLeaders(datas);
         const pagesNumber = pages.length;
