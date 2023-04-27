@@ -1,4 +1,5 @@
 const {SlashCommandBuilder,EmbedBuilder} = require("discord.js");
+const { sendLogWarningRemove } = require("../util");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -33,6 +34,7 @@ module.exports = {
             db.set(user.id,[0,0,[],[]])
         }
         const datas = db.get(user.id);
+        const number = datas[1];
         datas[1] =0;
         datas[2]=[];
         datas[3]=[];
@@ -44,6 +46,8 @@ module.exports = {
         })
         .setDescription(`The **Admins** decided to remove **all** of your warnings !`)
         .setColor("Green")
+
+        sendLogWarningRemove(interaction,user,actionner,number);
 
         interaction.reply({embeds : [embed]})
     }

@@ -1,4 +1,5 @@
 const {SlashCommandBuilder,EmbedBuilder} = require("discord.js");
+const { sendLogWarning } = require("../util");
 
 
 module.exports = {
@@ -53,6 +54,8 @@ module.exports = {
             iconURL : "https://i.goopics.net/mksbjm.png"
         })
         .setDescription(`:warning: The **Admins** just gave you a warning ! :warning:\n**Member :** ${memberWarned}\n**Reason :** ${reason}`)
+
+        sendLogWarning(interaction,memberWarned,reason,admin)
 
         interaction.reply({embeds : [embed]})
         

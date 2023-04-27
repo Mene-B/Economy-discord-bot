@@ -1,4 +1,5 @@
 const {SlashCommandBuilder,EmbedBuilder} =require("discord.js");
+const {sendLogWarningRemove}=require("../util.js")
 
 module.exports = {
     data : new SlashCommandBuilder()
@@ -62,6 +63,8 @@ module.exports = {
         })
         .setDescription(`The **Admins** decided to remove one of your warnings\n**Warning reason :** ${reason}\n**Actionned by :** <@${actionner}>`)
         .setColor("Green")
+
+        sendLogWarningRemove(interaction,user,interaction.user,0,reason,actionner);
 
         interaction.reply({embeds : [embed]})
     }
